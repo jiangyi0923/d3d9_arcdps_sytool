@@ -1,0 +1,4 @@
+
+#include "resource.h"
+
+IDR_BG   RCDATA DISCARDABLE  "boos_gb.dds"
