@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\d3d9_arcdps_sytool\json\CMakeFiles\0a7ad2cb978d2efa69e55eb717f45d03\Experimental.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\d3d9_arcdps_sytool\json\CMakeFiles\Experimental" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{01D3ABE4-ECCA-30AC-AE88-11EE5998543C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

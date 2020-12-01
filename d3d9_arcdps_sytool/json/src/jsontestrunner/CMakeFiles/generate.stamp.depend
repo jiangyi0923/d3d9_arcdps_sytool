@@ -1,0 +1,6 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.17/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/FindPackageMessage.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/FindPython/Support.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/FindPython3.cmake
+G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/CMakeLists.txt

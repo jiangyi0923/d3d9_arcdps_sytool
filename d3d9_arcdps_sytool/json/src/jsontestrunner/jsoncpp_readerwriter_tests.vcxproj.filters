@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\d3d9_arcdps_sytool\json\CMakeFiles\e126a3e0e8f0c86ff874d0163a553556\jsoncpp_readerwriter_tests.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\src\jsontestrunner\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\d3d9_arcdps_sytool\json\src\jsontestrunner\CMakeFiles\jsoncpp_readerwriter_tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{01D3ABE4-ECCA-30AC-AE88-11EE5998543C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
