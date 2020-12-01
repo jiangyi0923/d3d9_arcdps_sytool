@@ -26,7 +26,7 @@ namespace SYtool {
 	uintptr_t mod_combat(cbtevent* ev, ag* src, ag* dst, char* skillname, uint64_t id, uint64_t revision);
 	bool LoadFontResource(HMODULE hModule, UINT resId, void*& dataPtr, size_t& dataSize);
 	IDirect3DTexture9* CreateTextureFromResource(IDirect3DDevice9* pDev, HMODULE hModule, unsigned uResource);
-	bool Show_settingwindows = true;
+	bool Show_settingwindows = false;
 	IDirect3DTexture9* bgtx = nullptr;
 	void readArcExports();
 	typedef uint64_t(*arc_export_func_u64)();
@@ -42,7 +42,6 @@ namespace SYtool {
 	bool arc_movelock_altui = false;
 	bool arc_clicklock_altui = false;
 	bool arc_window_fastclose = false;
-
 	int BUFF;
 	bool shetingkey = false;
 	//配置菜单
@@ -50,23 +49,48 @@ namespace SYtool {
 	bool valid_table_ini = false;
 	void parseIni();
 	void writeIni();
+	SYtool_item::Items data_it;
+	SYtool_MysData::MysData data_my;
+	SYtool_recipes::Recipes data_re;
+
+	int first_use = 1;
+
+	int isloadmaysOK = 0;
+	int isloaditemsOK = 0;
+	int isloadrecisOK = 0;
+	class LoadMaysThread
+	{
+	public:
+		LoadMaysThread() {}
+		~LoadMaysThread() {}
+		void LoadMaysDatas();
+		void LoaditemsDatas();
+		void LoadrecisDatas();
+	private:
+	};
+
+
 
 	class SY_settings
 	{
 	public:
 		SY_settings();
 		~SY_settings();
-		LPCWSTR stringToLPCWSTR(std::string orig);
-		void GET_json_toit();
-		void GetTime();
-		bool is_not_dateofstada();
-		bool getjsonstring(std::string inits);
+		//LPCWSTR stringToLPCWSTR(std::string orig);
+		//void GET_json_toit();
+		//void GetTime();
+		//bool is_not_dateofstada();
+		//bool getjsonstring(std::string inits);
 		void ShowUI(bool* INITbool);
 	private:
-		std::string result[5];
+		//std::string result[5];
 		bool wancheng = false;
 		bool geting = true;
-		char datenow[64];
+		//char datenow[64];
+		ImVec4 PZ_color (int initofpz);
+		const char* ZG_zg(int initofcl);
+		const char* TP_yp(int inittotp);
+		std::string tmptext = "";
 	};
 	SY_settings seting;
 

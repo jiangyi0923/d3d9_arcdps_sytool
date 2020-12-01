@@ -1,4 +1,8 @@
-
+// Microsoft Visual C++ generated resource script.
+//
 #include "resource.h"
+//IDR_BG                  RCDATA                  "boos_gb.dds"
+IDR_MYSDATA             RCDATA                  "mysdata.json"
+IDR_ITEMDATA             RCDATA                  "Items.json"
+IDR_RECIDATA             RCDATA                  "Recipes.json"
 
-IDR_BG   RCDATA DISCARDABLE  "boos_gb.dds"

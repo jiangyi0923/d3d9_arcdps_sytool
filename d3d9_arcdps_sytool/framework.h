@@ -9,6 +9,8 @@
 #include <d3d9.h>
 #include "resource.h"
 #include "simpleini/SimpleIni.h"
-#include "jsoncpp/include/json/json.h"
-#include <WinInet.h>
+#include "MysData.h"
+#include "Recipes.h"
+#include "Items.h"
 #define COM_RELEASE(x) { if((x)) { (x)->Release(); (x) = nullptr; } }
+using namespace std;

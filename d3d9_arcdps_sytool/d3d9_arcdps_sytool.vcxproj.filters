@@ -18,6 +18,12 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{b31cfa30-0051-4342-a2bb-739b97980759}</UniqueIdentifier>
     </Filter>
+    <Filter Include="parsing">
+      <UniqueIdentifier>{799a6ece-a03f-40a4-ae76-efed1f3abe96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data">
+      <UniqueIdentifier>{2d724682-bf60-42fc-888a-ec03c585cf65}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -41,36 +47,6 @@
     <ClInclude Include="imgui\stb_truetype.h">
       <Filter>imgui</Filter>
     </ClInclude>
-    <ClInclude Include="jsoncpp\include\json\allocator.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
-    <ClInclude Include="jsoncpp\include\json\assertions.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
-    <ClInclude Include="jsoncpp\include\json\config.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
-    <ClInclude Include="jsoncpp\include\json\forwards.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
-    <ClInclude Include="jsoncpp\include\json\json.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
-    <ClInclude Include="jsoncpp\include\json\json_features.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
-    <ClInclude Include="jsoncpp\include\json\reader.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
-    <ClInclude Include="jsoncpp\include\json\value.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
-    <ClInclude Include="jsoncpp\include\json\version.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
-    <ClInclude Include="jsoncpp\include\json\writer.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
     <ClInclude Include="simpleini\SimpleIni.h">
       <Filter>simpleini</Filter>
     </ClInclude>
@@ -91,6 +67,18 @@
     </ClInclude>
     <ClInclude Include="DDSTextureLoader.h">
       <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>jsoncpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Items.h">
+      <Filter>parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="Recipes.h">
+      <Filter>parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="MysData.h">
+      <Filter>parsing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -120,5 +108,17 @@
     <ResourceCompile Include="d3d9_arcdps_sytool.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Recipes.json">
+      <Filter>data</Filter>
+    </None>
+    <None Include="mysdata.json">
+      <Filter>data</Filter>
+    </None>
+    <None Include="Items.json">
+      <Filter>data</Filter>
+    </None>
   </ItemGroup>
 </Project>
