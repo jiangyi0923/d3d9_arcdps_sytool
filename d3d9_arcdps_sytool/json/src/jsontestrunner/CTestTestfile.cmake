@@ -1,0 +1,36 @@
+# CMake generated Testfile for 
+# Source directory: G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner
+# Build directory: G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/d3d9_arcdps_sytool/json/src/jsontestrunner
+# 
+# This file includes the relevant testing commands required for 
+# testing this directory and lists subdirectories to be tested as well.
+if("${CTEST_CONFIGURATION_TYPE}" MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
+  add_test(jsoncpp_readerwriter "C:/Program Files/python/python.exe" "-B" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/runjsontests.py" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/d3d9_arcdps_sytool/json/bin/Debug/jsontestrunner_exe.exe" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/data")
+  set_tests_properties(jsoncpp_readerwriter PROPERTIES  WORKING_DIRECTORY "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/data" _BACKTRACE_TRIPLES "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/CMakeLists.txt;43;add_test;G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/CMakeLists.txt;0;")
+elseif("${CTEST_CONFIGURATION_TYPE}" MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
+  add_test(jsoncpp_readerwriter "C:/Program Files/python/python.exe" "-B" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/runjsontests.py" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/d3d9_arcdps_sytool/json/bin/Release/jsontestrunner_exe.exe" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/data")
+  set_tests_properties(jsoncpp_readerwriter PROPERTIES  WORKING_DIRECTORY "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/data" _BACKTRACE_TRIPLES "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/CMakeLists.txt;43;add_test;G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/CMakeLists.txt;0;")
+elseif("${CTEST_CONFIGURATION_TYPE}" MATCHES "^([Mm][Ii][Nn][Ss][Ii][Zz][Ee][Rr][Ee][Ll])$")
+  add_test(jsoncpp_readerwriter "C:/Program Files/python/python.exe" "-B" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/runjsontests.py" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/d3d9_arcdps_sytool/json/bin/MinSizeRel/jsontestrunner_exe.exe" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/data")
+  set_tests_properties(jsoncpp_readerwriter PROPERTIES  WORKING_DIRECTORY "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/data" _BACKTRACE_TRIPLES "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/CMakeLists.txt;43;add_test;G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/CMakeLists.txt;0;")
+elseif("${CTEST_CONFIGURATION_TYPE}" MATCHES "^([Rr][Ee][Ll][Ww][Ii][Tt][Hh][Dd][Ee][Bb][Ii][Nn][Ff][Oo])$")
+  add_test(jsoncpp_readerwriter "C:/Program Files/python/python.exe" "-B" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/runjsontests.py" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/d3d9_arcdps_sytool/json/bin/RelWithDebInfo/jsontestrunner_exe.exe" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/data")
+  set_tests_properties(jsoncpp_readerwriter PROPERTIES  WORKING_DIRECTORY "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/data" _BACKTRACE_TRIPLES "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/CMakeLists.txt;43;add_test;G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/CMakeLists.txt;0;")
+else()
+  add_test(jsoncpp_readerwriter NOT_AVAILABLE)
+endif()
+if("${CTEST_CONFIGURATION_TYPE}" MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
+  add_test(jsoncpp_readerwriter_json_checker "C:/Program Files/python/python.exe" "-B" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/runjsontests.py" "--with-json-checker" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/d3d9_arcdps_sytool/json/bin/Debug/jsontestrunner_exe.exe" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/data")
+  set_tests_properties(jsoncpp_readerwriter_json_checker PROPERTIES  WORKING_DIRECTORY "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/data" _BACKTRACE_TRIPLES "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/CMakeLists.txt;47;add_test;G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/CMakeLists.txt;0;")
+elseif("${CTEST_CONFIGURATION_TYPE}" MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
+  add_test(jsoncpp_readerwriter_json_checker "C:/Program Files/python/python.exe" "-B" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/runjsontests.py" "--with-json-checker" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/d3d9_arcdps_sytool/json/bin/Release/jsontestrunner_exe.exe" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/data")
+  set_tests_properties(jsoncpp_readerwriter_json_checker PROPERTIES  WORKING_DIRECTORY "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/data" _BACKTRACE_TRIPLES "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/CMakeLists.txt;47;add_test;G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/CMakeLists.txt;0;")
+elseif("${CTEST_CONFIGURATION_TYPE}" MATCHES "^([Mm][Ii][Nn][Ss][Ii][Zz][Ee][Rr][Ee][Ll])$")
+  add_test(jsoncpp_readerwriter_json_checker "C:/Program Files/python/python.exe" "-B" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/runjsontests.py" "--with-json-checker" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/d3d9_arcdps_sytool/json/bin/MinSizeRel/jsontestrunner_exe.exe" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/data")
+  set_tests_properties(jsoncpp_readerwriter_json_checker PROPERTIES  WORKING_DIRECTORY "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/data" _BACKTRACE_TRIPLES "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/CMakeLists.txt;47;add_test;G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/CMakeLists.txt;0;")
+elseif("${CTEST_CONFIGURATION_TYPE}" MATCHES "^([Rr][Ee][Ll][Ww][Ii][Tt][Hh][Dd][Ee][Bb][Ii][Nn][Ff][Oo])$")
+  add_test(jsoncpp_readerwriter_json_checker "C:/Program Files/python/python.exe" "-B" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/runjsontests.py" "--with-json-checker" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/d3d9_arcdps_sytool/json/bin/RelWithDebInfo/jsontestrunner_exe.exe" "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/data")
+  set_tests_properties(jsoncpp_readerwriter_json_checker PROPERTIES  WORKING_DIRECTORY "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/../../test/data" _BACKTRACE_TRIPLES "G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/CMakeLists.txt;47;add_test;G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/jsontestrunner/CMakeLists.txt;0;")
+else()
+  add_test(jsoncpp_readerwriter_json_checker NOT_AVAILABLE)
+endif()

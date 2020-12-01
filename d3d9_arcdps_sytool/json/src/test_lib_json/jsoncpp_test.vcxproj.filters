@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\src\test_lib_json\jsontest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\src\test_lib_json\fuzz.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\src\test_lib_json\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\src\test_lib_json\jsontest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\src\test_lib_json\fuzz.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\src\test_lib_json\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{DEBACE89-74F7-3DF9-BC93-6FC2529CFD57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{16C752A2-6C29-3BC4-925F-0C3EFF45C498}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

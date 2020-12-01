@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\d3d9_arcdps_sytool\json\CMakeFiles\2db08372fe4f3f13eab2d3a078775532\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{01D3ABE4-ECCA-30AC-AE88-11EE5998543C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

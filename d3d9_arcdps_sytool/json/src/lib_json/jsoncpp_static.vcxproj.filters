@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\src\lib_json\json_reader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\src\lib_json\json_value.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\src\lib_json\json_writer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\include\json\config.h">
+      <Filter>Public API</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\include\json\forwards.h">
+      <Filter>Public API</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\include\json\json_features.h">
+      <Filter>Public API</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\include\json\value.h">
+      <Filter>Public API</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\include\json\reader.h">
+      <Filter>Public API</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\include\json\version.h">
+      <Filter>Public API</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\include\json\writer.h">
+      <Filter>Public API</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\include\json\assertions.h">
+      <Filter>Public API</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\src\lib_json\json_tool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\src\lib_json\json_valueiterator.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="G:\d3d9_arcdps_sytool\d3d9_arcdps_sytool\jsoncpp\src\lib_json\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{DEBACE89-74F7-3DF9-BC93-6FC2529CFD57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public API">
+      <UniqueIdentifier>{750B7442-9AB6-3401-9B1D-2EC70014DBC6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{16C752A2-6C29-3BC4-925F-0C3EFF45C498}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

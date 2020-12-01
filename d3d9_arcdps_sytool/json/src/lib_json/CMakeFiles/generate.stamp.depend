@@ -1,0 +1,14 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.17/Modules/CMakeConfigurableFile.in
+C:/Program Files/CMake/share/cmake-3.17/Modules/CheckCSourceCompiles.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/CheckCXXSourceCompiles.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/CheckCXXSymbolExists.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/CheckIncludeFile.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/CheckIncludeFile.cxx.in
+C:/Program Files/CMake/share/cmake-3.17/Modules/CheckIncludeFileCXX.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/CheckStructHasMember.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/CheckSymbolExists.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/CheckTypeSize.c.in
+C:/Program Files/CMake/share/cmake-3.17/Modules/CheckTypeSize.cmake
+G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/d3d9_arcdps_sytool/json/CMakeFiles/CheckTypeSize/LCONV_SIZE.cpp
+G:/d3d9_arcdps_sytool/d3d9_arcdps_sytool/jsoncpp/src/lib_json/CMakeLists.txt
