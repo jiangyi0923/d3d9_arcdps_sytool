@@ -6,7 +6,13 @@
 #include <fstream>
 #include "imgui/imgui_internal.h"
 #include <boost/thread.hpp>
+#include "imgui/imgui_stdlib.h"
+#include "imgui/imgui_impl_win32.h"
 // 当使用预编译的头时，需要使用此源文件，编译才能成功。
+
+
+HWND hwnd = nullptr;
+
 namespace SYtool 
 {
 	void dll_init(HMODULE hModule)
@@ -25,6 +31,9 @@ namespace SYtool
 		//bgtx = CreateTextureFromResource(id3dd9, dll_Module, IDR_BG);
 		//设置上下文
 		ImGui::SetCurrentContext((ImGuiContext*)imguicontext);
+
+		ImGui_ImplWin32_Init(hwnd);
+
 		parseIni();//读配置
 		return mod_init;
 	}
@@ -43,6 +52,11 @@ namespace SYtool
 	}
 	uintptr_t mod_wnd(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
+		hwnd = hWnd;
+		
+		if (ImGui::GetCurrentContext() == NULL)
+			return 0;
+
 		if (lParam >> 31 == 0) //按下。
 		{
 			if (Show_settingwindows && wParam == VK_ESCAPE) {
@@ -143,6 +157,13 @@ namespace SYtool
 			}
 			break;
 		}
+		case WM_CHAR:
+			// You can also use ToAscii()+GetKeyboardState() to retrieve characters.
+			if (wParam > 0 && wParam < 0x10000)
+				//io.AddInputCharacterUTF16((unsigned short)wParam);
+				//AddInputCharacter
+				io->AddInputCharacterUTF16((unsigned short)wParam);
+			break;
 		break;
 		}
 
@@ -216,7 +237,7 @@ namespace SYtool
 		SI_Error rc = table_ini.LoadFile("addons\\arcdps\\arcdps_sytool.ini");
 		valid_table_ini = rc >= 0;
 
-		std::string pszValue = table_ini.GetValue("allkeys", "show_settingui_key", "75");
+		std::string pszValue = table_ini.GetValue("allkeys", "show_settingui_key", "80");
 		setting_key = std::stoi(pszValue);//按键读取
 
 		pszValue = table_ini.GetValue("setting", "first_time_to_use", "1");
@@ -259,21 +280,42 @@ namespace SYtool
 		//AllocConsole();
 		memset(&arc_exports, 0, sizeof(arcdps_exports));
 		arc_exports.sig = 0xE3C07A26;
+		arc_exports.imguivers = IMGUI_VERSION_NUM;
 		arc_exports.size = sizeof(arcdps_exports);
-		arc_exports.out_name = u8"神油工具-配方搜索插件";
+
+		if (Lang == 0)
+		{
+			arc_exports.out_name = u8"神油工具-配方搜索插件";
+		}
+		else
+		{
+			arc_exports.out_name = "SY tool";
+		}
 		arc_exports.out_build = "0.1";
 		arc_exports.wnd_nofilter = mod_wnd;
 		//arc_exports.combat = mod_combat;
 		arc_exports.imgui = mod_imgui;
 		arc_exports.options_end = mod_options;
 		return &arc_exports;
+		
 	}
 
 	uintptr_t mod_options()
 	{
-		if (ImGui::Button(u8"神油工具-配方搜索插件"))
+
+		if (Lang == 0)
 		{
-			Show_settingwindows = true;
+			if (ImGui::Button(u8"神油工具-配方搜索插件"))
+			{
+				Show_settingwindows = true;
+			}
+		}
+		else
+		{
+			if (ImGui::Button("SY tool"))
+			{
+				Show_settingwindows = true;
+			}
 		}
 		return 0;
 	}
@@ -424,6 +466,28 @@ namespace SYtool
 
 	}
 
+	template<typename charT>
+	struct my_equal {
+		my_equal(const std::locale& loc) : loc_(loc) {}
+		bool operator()(charT ch1, charT ch2) {
+			return std::toupper(ch1, loc_) == std::toupper(ch2, loc_);
+		}
+	private:
+		const std::locale& loc_;
+	};
+
+	// find substring (case insensitive)
+	template<typename T>
+	int ci_find_substr(const T& str1, const T& str2, const std::locale& loc = std::locale())
+	{
+		typename T::const_iterator it = std::search(str1.begin(), str1.end(),
+			str2.begin(), str2.end(), my_equal<typename T::value_type>(loc));
+		if (it != str1.end()) return it - str1.begin();
+		else return -1; // not found
+	}
+
+
+
 
 
 	SY_settings::SY_settings()
@@ -569,6 +633,21 @@ namespace SYtool
 	vector<int> cailiao_id;
 	vector<int> cailiao_ct;
 	int Selected_item = -1;
+	
+
+	void SY_settings::websiye()
+	{
+		::wkeSetWkeDllPath(L".\\addons\\miniblink_x64.dll");
+
+		::wkeInitialize();
+
+		windowof = ::wkeCreateWebWindow(WKE_WINDOW_TYPE_TRANSPARENT, NULL, 0, 0, 1080, 680);
+
+		::wkeShowWindow(windowof, TRUE);
+
+		::wkeLoadURL(windowof,"http://news.sina.com.cn");
+	}
+
 
 	void SY_settings::ShowUI(bool* INITbool)
 	{
@@ -603,129 +682,107 @@ namespace SYtool
 		if (first_use == 1)
 		{
 			first_use = 0;
-			ImGui::SetNextWindowPosCenter();
+			ImGui::SetNextWindowPos(ImVec2(0.5f, 0.5f));
 			ImGui::SetNextWindowSize(ImVec2(500.0f, 380.0f));
 		}
 		//ImGui::SetNextWindowPosCenter();
 		ImGui::PushFont(ImGui::GetIO().Fonts->Fonts.back());
-		ImGui::Begin(u8"神油工具_配方搜索插件", INITbool);
 
-		//if (isloaditemsOK == 0)
-		//{
-		//	if (ImGui::Button(u8"点击加载物品数据库"))
-		//	{
-		//		isloaditemsOK = 1;
-		//		boost::thread thServer1(Loaditems_Datas);
-		//	}
-		//}
-		//
-		//if (isloadmaysOK == 0)
-		//{
-		//	if (ImGui::Button(u8"点击加载马桶数据库"))
-		//	{
-		//		isloadmaysOK = 1;
-		//		boost::thread thServer2(LoadMays_Datas);
-		//	}
-		//}
-		//if (isloadrecisOK == 0)
-		//{
-		//	if (ImGui::Button(u8"点击加载配方数据库"))
-		//	{
-		//		isloadrecisOK = 1;
-		//		boost::thread thServer3(Loadrecis_Datas);
-		//	}
-		//}
-
-		//ImGui::Image(bgtx,ImVec2(200,200));
-		//ImGui::InputInt(u8"按键", &BUFF, 0, 512);
-		//ImGui::SameLine();
-		//if (!shetingkey)
-		//{
-		//	if (ImGui::Button(u8"设置##anjian1"))
-		//	{
-		//		shetingkey = true;
-		//	}
-		//}
-		//else
-		//{
-		//	if (ImGui::Button(u8"取消##anjian1"))
-		//	{
-		//		shetingkey = false;
-		//	}
-		//}
-		//if (geting || !is_not_dateofstada())
-		//{
-		//	geting = false;
-		//	GET_json_toit();
-		//}
-		//else
-		//{
-		//	if (wancheng)
-		//	{
-		//		ImGui::Text(datenow);
-		//		if (result[0] != "0")
-		//		{
-		//			for (int i = 0; i < 5; i++)
-		//			{
-		//				ImGui::Text(result[i].c_str());
-		//			}
-		//		}
-		//		else
-		//		{
-		//			ImGui::Text(u8"积分日常获取失败等待官网更新");
-		//		}
-		//	}
-		//}
-		//} 
+		if (Lang == 0)
+		{
+			ImGui::Begin(u8"神油工具_配方搜索插件", INITbool);
+			if (isloaditemsOK == 1)ImGui::Text(u8"正在加载物品数据库");
+			if (isloaditemsOK > 2)
+			{
+				ImGui::Text(u8"加载物品数据库失败:错误代码=%d", isloaditemsOK);
+				ImGui::SameLine();
+				if (ImGui::Button(u8"重新加载物品数据库"))
+				{
+					isloaditemsOK = 0;
+				}
+			}
+			if (isloadrecisOK == 1)ImGui::Text(u8"正在加载配方数据库");
+			if (isloadrecisOK > 2)
+			{
+				ImGui::Text(u8"加载配方数据库失败:错误代码=%d", isloadrecisOK);
+				ImGui::SameLine();
+				if (ImGui::Button(u8"重新加载配方数据库"))
+				{
+					isloadrecisOK = 0;
+				}
+			}
+			if (isloadmaysOK == 1)ImGui::Text(u8"正在加载马桶数据库");
+			if (isloadmaysOK > 2)
+			{
+				ImGui::Text(u8"加载数据库失败:错误代码=%d", isloadmaysOK);
+				ImGui::SameLine();
+				if (ImGui::Button(u8"重新加载马桶数据库"))
+				{
+					isloadmaysOK = 0;
+				}
+			}
+		}
+		else
+		{
+			ImGui::Begin("SY_Recipe Search Plugin", INITbool);
+			if (isloaditemsOK == 1)ImGui::Text("Loading the Item database");
+			if (isloaditemsOK > 2)
+			{
+				ImGui::Text("Failed to load item database: error code=%d", isloaditemsOK);
+				ImGui::SameLine();
+				if (ImGui::Button("Reload the item database"))
+				{
+					isloaditemsOK = 0;
+				}
+			}
+			if (isloadrecisOK == 1)ImGui::Text("Loading The Recipe database");
+			if (isloadrecisOK > 2)
+			{
+				ImGui::Text("Failed to load Recipe database: error code=%d", isloadrecisOK);
+				ImGui::SameLine();
+				if (ImGui::Button("Reload the Recipe database"))
+				{
+					isloadrecisOK = 0;
+				}
+			}
+			if (isloadmaysOK == 1)ImGui::Text("Loading The Mystic Forge database");
+			if (isloadmaysOK > 2)
+			{
+				ImGui::Text("Failed to load Mystic Forge database: error code=%d", isloadmaysOK);
+				ImGui::SameLine();
+				if (ImGui::Button("Reload the Mystic Forge database"))
+				{
+					isloadmaysOK = 0;
+				}
+			}
+		}
 
 #pragma region 数据库加载反馈
-		if (isloaditemsOK == 1)ImGui::Text(u8"正在加载物品数据库");
-		if (isloaditemsOK > 2)
-		{
-			ImGui::Text(u8"加载物品数据库失败:错误代码=%d", isloaditemsOK);
-			ImGui::SameLine();
-			if (ImGui::Button(u8"重新加载物品数据库"))
-			{
-				isloaditemsOK = 0;
-			}
-		}
-		if (isloadrecisOK == 1)ImGui::Text(u8"正在加载配方数据库");
-		if (isloadrecisOK > 2)
-		{
-			ImGui::Text(u8"加载配方数据库失败:错误代码=%d", isloadrecisOK);
-			ImGui::SameLine();
-			if (ImGui::Button(u8"重新加载配方数据库"))
-			{
-				isloadrecisOK = 0;
-			}
-		}
-		if (isloadmaysOK == 1)ImGui::Text(u8"正在加载马桶数据库");
-		if (isloadmaysOK > 2)
-		{
-			ImGui::Text(u8"加载数据库失败:错误代码=%d", isloadmaysOK);
-			ImGui::SameLine();
-			if (ImGui::Button(u8"重新加载马桶数据库"))
-			{
-				isloadmaysOK = 0;
-			}
-		}
+
+
+
+
+
+		
 
 #pragma endregion
 
 		ImGui::BeginChild("ChildL", ImVec2(-1, 320));
 		{
 			ImGui::BeginChild("ChildL1", ImVec2(ImGui::GetWindowContentRegionWidth() * 0.52f, 40));
-			static char str0[512] = "";
-			ImGui::InputText("", str0, IM_ARRAYSIZE(str0));
+			//static char str0[512] = "";
+			static std::string str0 = "";
+			ImGui::InputText(u8"", &str0);
 			ImGui::SameLine();
-			if (ImGui::Button(u8"搜索"))
+			if (ImGui::Button(CTXEX2))
+			//if (ImGui::Button(u8"搜索"))
 			{
 				cailiao_id.clear();
 				cailiao_ct.clear();
-				string tmp = str0;
+				string tmp = str0.data();
 				if (tmp != "")
 				{
-					//搜索数据库
+					//搜索数据库库
 					Selected_item = -1;
 					searchresults.clear();
 					searchresults_id.clear();
@@ -734,21 +791,40 @@ namespace SYtool
 					searchresults_tp.clear();
 					for (size_t i = 0; i < data_it.size(); i++)
 					{
-						if (data_it[i].get_ne().find(tmp) != string::npos)
+
+						if (Lang == 0)
 						{
-							searchresults.push_back(data_it[i].get_ne());
-							searchresults_id.push_back((int)i);
-							searchresults_zg.push_back((int)data_it[i].get_zg());
-							searchresults_cl.push_back(data_it[i].get_cl());
-							searchresults_tp.push_back((int)data_it[i].get_tp());
-							
+							if (data_it[i].get_ne().find(tmp) != string::npos)
+							{
+								searchresults.push_back(data_it[i].get_ne());
+								searchresults_id.push_back((int)i);
+								searchresults_zg.push_back((int)data_it[i].get_zg());
+								searchresults_cl.push_back(data_it[i].get_cl());
+								searchresults_tp.push_back((int)data_it[i].get_tp());
+							}
 						}
+						else
+						{
+							if (ci_find_substr(data_it[i].get_ne(), tmp) != -1)
+							{
+								searchresults.push_back(data_it[i].get_ne());
+								searchresults_id.push_back((int)i);
+								searchresults_zg.push_back((int)data_it[i].get_zg());
+								searchresults_cl.push_back(data_it[i].get_cl());
+								searchresults_tp.push_back((int)data_it[i].get_tp());
+							}
+						}
+
 					}
 				}
 			}
+			//if (ImGui::Button(u8"搜索"))
+			//{
+			//	websiye();
+			//}
 			ImGui::EndChild();
 			ImGuiWindowFlags window_flags = ImGuiWindowFlags_HorizontalScrollbar;
-			ImGui::PushStyleVar(ImGuiStyleVar_ChildWindowRounding, 5.0f);
+			ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 5.0f);
 			ImGui::BeginChild("ChildL2", ImVec2(ImGui::GetWindowContentRegionWidth() * 0.5f, 270), false, window_flags);
 			ImGui::Columns(1);
 			for (int i = 0; i < searchresults.size(); i++)
@@ -790,11 +866,28 @@ namespace SYtool
 			}
 			ImGui::PopStyleColor(1);
 
-			ImGui::Text(u8"物品ID: %d", data_it[searchresults_id[Selected_item]].get_id() );
 
-			ImGui::Text(u8"物品类型: "); ImGui::SameLine(); ImGui::Text(TP_yp(searchresults_tp[Selected_item])); ImGui::SameLine();
+			if (Lang == 0)
+			{
+				ImGui::Text(u8"物品ID: %d", data_it[searchresults_id[Selected_item]].get_id());
 
-			ImGui::Text(u8"  物品品质: "); ImGui::SameLine(); 
+				ImGui::Text(u8"物品类型: "); ImGui::SameLine(); ImGui::Text(TP_yp(searchresults_tp[Selected_item])); ImGui::SameLine();
+
+				ImGui::Text(u8"  物品品质: "); ImGui::SameLine();
+			}
+			else
+			{
+				ImGui::Text("Item ID: %d", data_it[searchresults_id[Selected_item]].get_id());
+
+				ImGui::Text("Item type: "); ImGui::SameLine(); ImGui::Text(TP_yp(searchresults_tp[Selected_item])); ImGui::SameLine();
+
+				ImGui::Text("  Item Quality: "); ImGui::SameLine();
+			}
+
+
+
+
+
 			
 			ImGui::PushStyleColor(ImGuiCol_Text, PZ_color(searchresults_zg[Selected_item]));
 			ImGui::Text(ZG_zg(searchresults_zg[Selected_item]));
@@ -804,7 +897,7 @@ namespace SYtool
 
 		ImGui::EndChild();
 
-		ImGui::PushStyleVar(ImGuiStyleVar_ChildWindowRounding, 5.0f);
+		ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 5.0f);
 		ImGui::BeginChild("ChildR1", ImVec2(ImGui::GetWindowContentRegionWidth() * 0.5f, 230), true);
 		ImGui::Columns(1);
 
@@ -815,7 +908,19 @@ namespace SYtool
 				for (size_t i = 0; i < data_it[searchresults_id[Selected_item]].get_pf().size(); i++)
 				{
 					char buf[128];
-					sprintf_s(buf, u8"配方 - %d##pf%03d", (int)data_it[searchresults_id[Selected_item]].get_pf()[i], (int)i);
+					//Recipes
+
+					if (Lang == 0)
+					{
+						sprintf_s(buf, u8"配方 - %d##pf%03d", (int)data_it[searchresults_id[Selected_item]].get_pf()[i], (int)i);
+					}
+					else
+					{
+						sprintf_s(buf, "Recipes - %d##pf%03d", (int)data_it[searchresults_id[Selected_item]].get_pf()[i], (int)i);
+					}
+
+					
+					//
 					if (ImGui::Button(buf, ImVec2(-FLT_MIN, 0.0f)))
 					{
 						cailiao_id.clear();
@@ -840,7 +945,16 @@ namespace SYtool
 				for (size_t i = 0; i < data_it[searchresults_id[Selected_item]].get_mc().size(); i++)
 				{
 					char buf[128];
-					sprintf_s(buf, u8"熔炉  %s##mc%03d", data_it[searchresults_id[Selected_item]].get_mc()[i].c_str(), (int)i);
+
+					if (Lang == 0)
+					{
+						sprintf_s(buf, u8"熔炉  %s##mc%03d", data_it[searchresults_id[Selected_item]].get_mc()[i].c_str(), (int)i);
+					}
+					else
+					{
+						sprintf_s(buf, "MysticForge %s##mc%03d", data_it[searchresults_id[Selected_item]].get_mc()[i].c_str(), (int)i);
+					}
+
 					if (ImGui::Button(buf, ImVec2(-FLT_MIN, 0.0f)))
 					{
 						cailiao_id.clear();
@@ -875,7 +989,10 @@ namespace SYtool
 		if (Selected_item != -1 && cailiao_id.size() > 0)
 		{
 
-			if (ImGui::Button(u8"复制配方文本", ImVec2(-FLT_MIN, 0.0f)))
+
+			//Copy the recipe text
+			if (ImGui::Button(CTXEX1, ImVec2(-FLT_MIN, 0.0f)))
+			//if (ImGui::Button(u8"复制配方文本", ImVec2(-FLT_MIN, 0.0f)))
 			{
 				tmptext = (searchresults[Selected_item] + u8"=").c_str();
 				for (size_t i = 0; i < cailiao_id.size(); i++)
@@ -884,11 +1001,23 @@ namespace SYtool
 					{
 						if ((int)data_it[t].get_id() == cailiao_id[i])
 						{
-							tmptext +=  std::to_string(cailiao_ct[i]) + " " + data_it[t].get_ne();
+							tmptext +=  std::to_string(cailiao_ct[i]) + " " + data_it[t].get_ne() + ",";
 						}
 					}
 				}
-				ImGui::SetClipboardText((tmptext +u8" 来自神油配方搜索插件").c_str());
+				///From SY recipe search plugin
+
+				if (Lang == 0)
+				{
+					ImGui::SetClipboardText((tmptext + u8" 来自神油配方搜索插件").c_str());
+				}
+				else
+				{
+					ImGui::SetClipboardText((tmptext + " From SY recipe search plugin").c_str());
+				}
+
+				//
+				
 			}
 			for (size_t i = 0; i < cailiao_id.size(); i++)
 			{
@@ -917,19 +1046,47 @@ namespace SYtool
 
 		if (isloaditemsOK == 2)
 		{
-			ImGui::Text(u8"物品数据%d", data_it.size());
-			if (isloadrecisOK == 2)
+			if (Lang == 0)
 			{
-				ImGui::SameLine();
-				ImGui::Text(u8"/配方数据%d", data_re.size());
-				if (isloadmaysOK == 2)
+				ImGui::Text(u8"物品数据%d", data_it.size());
+				//ImGui::Text("Item data %d", data_it.size());
+				if (isloadrecisOK == 2)
 				{
 					ImGui::SameLine();
-					ImGui::Text(u8"/马桶数据%d", data_my.size());
-					ImGui::SameLine();
-					ImGui::Text(u8"数据不一定准确 数据库:2020-12-06编译");
+					ImGui::Text(u8"/配方数据%d", data_re.size());
+					//ImGui::Text("/Recipe data %d", data_re.size());
+					if (isloadmaysOK == 2)
+					{
+						ImGui::SameLine();
+						//Mystic Forge
+						//ImGui::Text("/Mystic Forge data %d", data_my.size());
+						ImGui::Text(u8"/马桶数据%d", data_my.size());
+						ImGui::SameLine();
+						//Data not necessarily accurate database :2020-12-06 compile
+						//ImGui::Text("Data not necessarily accurate,Database:2021-01-15 compile");
+						ImGui::Text(u8"数据不一定准确 数据库:2020-12-06编译");
+					}
 				}
 			}
+			else
+			{
+				//ImGui::Text(u8"物品数据%d", data_it.size());
+				ImGui::Text("Item data %d", data_it.size());
+				if (isloadrecisOK == 2)
+				{
+					ImGui::SameLine();
+					ImGui::Text("/Recipe data %d", data_re.size());
+					if (isloadmaysOK == 2)
+					{
+						ImGui::SameLine();
+						//Mystic Forge
+						ImGui::Text("/Mystic Forge data %d", data_my.size());
+						ImGui::SameLine();
+						ImGui::Text("Data not necessarily accurate,Database:2021-01-15 compile");
+					}
+				}
+			}
+
 		}
 
 		ImGui::End();
@@ -971,17 +1128,37 @@ namespace SYtool
 
 	const char* SY_settings::ZG_zg(int initofcl)
 	{
-		switch (initofcl)
+
+
+		if (Lang == 0)
 		{
-		case 0: return u8"未知";
-		case 1: return u8"垃圾";
-		case 2: return u8"普通";
-		case 3: return u8"优质";
-		case 4: return u8"精制";
-		case 5: return u8"稀有";
-		case 6: return u8"特异";
-		case 7: return u8"升华";
-		case 8: return u8"传奇";
+			switch (initofcl)
+			{
+			case 0: return u8"未知";
+			case 1: return u8"垃圾";
+			case 2: return u8"普通";
+			case 3: return u8"优质";
+			case 4: return u8"精制";
+			case 5: return u8"稀有";
+			case 6: return u8"特异";
+			case 7: return u8"升华";
+			case 8: return u8"传奇";
+			}
+		}
+		else
+		{
+			switch (initofcl)
+			{
+			case 0: return "NULL";
+			case 1: return "Junk";
+			case 2: return "Basic";
+			case 3: return "Fine";
+			case 4: return "Masterwork";
+			case 5: return "Rare";
+			case 6: return "Exotic";
+			case 7: return "Ascended";
+			case 8: return "Legendary";
+			}
 		}
 	}
 
@@ -1004,26 +1181,56 @@ namespace SYtool
 		//	UpgradeComponent – Upgrade components 升级组件15
 		//	Weapon – Weapons 武器16
 
-		switch (inittotp)
+
+
+		if (Lang == 0)
 		{
-		case 1: return u8"护甲";
-		case 2: return u8"背部";
-		case 3: return u8"容器";
-		case 4: return u8"消耗品";
-		case 5: return u8"容器箱";
-		case 6: return u8"制作材料";
-		case 7: return u8"采集工具";
-		case 8: return u8"小发明";
-		case 9: return u8"战利品(钥匙)";
-		case 10: return u8"迷你宠物";
-		case 11: return u8"工具";
-		case 12: return u8"特征指导";
-		case 13: return u8"首饰";
-		case 14: return u8"战利品";
-		case 15: return u8"升级组件";
-		case 16: return u8"武器";
-		case 0: return u8"未知";
+			switch (inittotp)
+			{
+			case 1: return u8"护甲";
+			case 2: return u8"背部";
+			case 3: return u8"容器";
+			case 4: return u8"消耗品";
+			case 5: return u8"容器箱";
+			case 6: return u8"制作材料";
+			case 7: return u8"采集工具";
+			case 8: return u8"小发明";
+			case 9: return u8"战利品(钥匙)";
+			case 10: return u8"迷你宠物";
+			case 11: return u8"工具";
+			case 12: return u8"特征指导";
+			case 13: return u8"首饰";
+			case 14: return u8"战利品";
+			case 15: return u8"升级组件";
+			case 16: return u8"武器";
+			case 0: return u8"未知";
+			}
 		}
+		else
+		{
+			switch (inittotp)
+			{
+			case 1: return "Armor";
+			case 2: return "Back";
+			case 3: return "Bag";
+			case 4: return "Consumable";
+			case 5: return "Container";
+			case 6: return "Crafting Material";
+			case 7: return "Gathering";
+			case 8: return "Gizmo";
+			case 9: return "Key";
+			case 10: return "MiniPet";
+			case 11: return "Tool";
+			case 12: return "Trait";
+			case 13: return "Trinket";
+			case 14: return "Trophy";
+			case 15: return "Upgrade Component";
+			case 16: return "Weapon";
+			case 0: return "Unknown";
+			}
+		}
+
+
 	}
 
 

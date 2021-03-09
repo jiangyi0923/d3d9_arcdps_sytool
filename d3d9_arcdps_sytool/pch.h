@@ -8,6 +8,16 @@
 #define PCH_H
 
 // 添加要在此处预编译的标头
+
+#define Lang 0
+#if (Lang == 1)
+#define   CTXEX1 "Copy text"  
+#define   CTXEX2 "Search" 
+#else
+#define   CTXEX1 u8"复制文本"  
+#define   CTXEX2 u8"搜索"   
+#endif
+
 #include "framework.h"
 namespace SYtool {
 	HMODULE dll_Module = nullptr;
@@ -91,6 +101,8 @@ namespace SYtool {
 		const char* ZG_zg(int initofcl);
 		const char* TP_yp(int inittotp);
 		std::string tmptext = "";
+		::wkeWebView windowof;
+		void websiye();
 	};
 	SY_settings seting;
 

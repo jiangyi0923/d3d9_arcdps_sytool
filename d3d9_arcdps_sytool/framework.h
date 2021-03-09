@@ -12,5 +12,6 @@
 #include "MysData.h"
 #include "Recipes.h"
 #include "Items.h"
+#include "wke.h"
 #define COM_RELEASE(x) { if((x)) { (x)->Release(); (x) = nullptr; } }
 using namespace std;
