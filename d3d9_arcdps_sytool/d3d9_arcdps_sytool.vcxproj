@@ -143,6 +143,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <Optimization>MinSpace</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -169,7 +170,7 @@
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="Items.h" />
     <ClInclude Include="json.hpp" />
-    <ClInclude Include="MysData.h" />
+    <ClInclude Include="MysticForge.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Recipes.h" />
     <ClInclude Include="resource.h" />

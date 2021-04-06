@@ -4,12 +4,8 @@
 //IDR_BG                  RCDATA                  "boos_gb.dds"
 
 
-#if (rcLang == 1)
-IDR_MYSDATA             RCDATA                  "mysdata_en.json"
-IDR_ITEMDATA             RCDATA                  "Items_en.json"
-IDR_RECIDATA             RCDATA                  "Recipes_en.json"
-#else
-IDR_MYSDATA             RCDATA                  "mysdata.json"
+
+IDR_MYSDATA             RCDATA                  "MysticForgeJson.json"
 IDR_ITEMDATA             RCDATA                  "Items.json"
-IDR_RECIDATA             RCDATA                  "Recipes.json"
-#endif
+IDR_RECIDATA             RCDATA                  "RecipesJson.json"
+

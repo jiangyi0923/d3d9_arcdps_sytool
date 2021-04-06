@@ -9,14 +9,14 @@
 
 // 添加要在此处预编译的标头
 
-#define Lang 0
-#if (Lang == 1)
-#define   CTXEX1 "Copy text"  
-#define   CTXEX2 "Search" 
-#else
-#define   CTXEX1 u8"复制文本"  
-#define   CTXEX2 u8"搜索"   
-#endif
+//#define Lang 0
+//#if (Lang == 1)
+//#define   CTXEX1 "Copy text"  
+//#define   CTXEX2 "Search" 
+//#else
+//#define   CTXEX1 u8"复制文本"  
+//#define   CTXEX2 u8"搜索"   
+//#endif
 
 #include "framework.h"
 namespace SYtool {
@@ -26,7 +26,7 @@ namespace SYtool {
 	char* arcvers;
 	void dll_init(HMODULE hModule);
 	void dll_exit();
-	extern "C" __declspec(dllexport) void* get_init_addr(char* arcversionstr, void* imguicontext, IDirect3DDevice9 * id3dd9);
+	extern "C" __declspec(dllexport) void* get_init_addr(char* arcversionstr, void* imguicontext, IDirect3DDevice9 * id3dd9 , HANDLE arcdll, void* mallocfn, void* freefn);
 	extern "C" __declspec(dllexport) void* get_release_addr();
 	arcdps_exports* mod_init();
 	uintptr_t mod_imgui(uint32_t not_charsel_or_loading);
@@ -59,25 +59,43 @@ namespace SYtool {
 	bool valid_table_ini = false;
 	void parseIni();
 	void writeIni();
-	SYtool_item::Items data_it;
-	SYtool_MysData::MysData data_my;
-	SYtool_recipes::Recipes data_re;
 
-	int first_use = 1;
+	bool wanttoinput = false;
 
-	int isloadmaysOK = 0;
-	int isloaditemsOK = 0;
-	int isloadrecisOK = 0;
-	class LoadMaysThread
-	{
-	public:
-		LoadMaysThread() {}
-		~LoadMaysThread() {}
-		void LoadMaysDatas();
-		void LoaditemsDatas();
-		void LoadrecisDatas();
-	private:
-	};
+	static std::vector<std::string> alllang_;//语言文本储存
+	static int langseting = 1;//语言状态
+	static bool isfistutose = true;//首次启用
+
+	MyData_Items::Items data_Items;//物品数据
+	MyData_MysticForge::MysticForge data_MysticForge;//马桶数据
+	MyData_Recipes::Recipes data_Recipes;//配方数据
+
+	int loaditemdatestat = 0;//物品加载状态
+	int loadMysticForgestat = 0;//马桶加载状态
+	int loadRecipesstat = 0;//配方加载状态
+
+	int Selected_item = -1;//选择的物品排序
+	int Selected_Recipes = -1;//选择的配方排序
+	int Selected_MysticForge = -1;//选择的马桶排序
+
+	std::vector<MyData_Items::Item> Articles_found; //找到的物品储存
+	std::vector<MyData_Recipes::Recipe> selectedRecipes; //选中的配方储存
+	std::vector<MyData_MysticForge::MysticForgeElement> selectedMysticForge; //选中的马桶储存
+
+	std::vector<MyData_Items::Item> selected_of_out_item_Recipes; //选中的配方输出物品储存
+	std::vector<MyData_Items::Item> selected_of_out_item_MysticForge;//选中的马桶输出物品储存
+	std::vector<MyData_Items::Item> selected_of_materials_item; //选中的配方或马桶材料物品储存
+
+	//class LoadMaysThread
+	//{
+	//public:
+	//	LoadMaysThread() {}
+	//	~LoadMaysThread() {}
+	//	void LoadMaysDatas();
+	//	void LoaditemsDatas();
+	//	void LoadrecisDatas();
+	//private:
+	//};
 
 
 

@@ -9,9 +9,9 @@
 #include <d3d9.h>
 #include "resource.h"
 #include "simpleini/SimpleIni.h"
-#include "MysData.h"
-#include "Recipes.h"
 #include "Items.h"
+#include "Recipes.h"
+#include "MysticForge.h"
 #include "wke.h"
 #define COM_RELEASE(x) { if((x)) { (x)->Release(); (x) = nullptr; } }
 using namespace std;

@@ -15,7 +15,7 @@
 #include <stdexcept>
 #include <regex>
 
-namespace SYtool_recipes {
+namespace MyData_Recipes {
     using nlohmann::json;
 
     inline json get_untyped(const json& j, const char* property) {
@@ -29,23 +29,23 @@ namespace SYtool_recipes {
         return get_untyped(j, property.data());
     }
 
-    class It {
+    class Itm {
     public:
-        It() = default;
-        virtual ~It() = default;
+        Itm() = default;
+        virtual ~Itm() = default;
 
     private:
-        int64_t it;
-        int64_t ct;
+        int a;
+        int b;
 
     public:
-        const int64_t& get_it() const { return it; }
-        int64_t& get_mutable_it() { return it; }
-        void set_it(const int64_t& value) { this->it = value; }
+        const int& get_a() const { return a; }
+        int& get_mutable_a() { return a; }
+        void set_a(const int& value) { this->a = value; }
 
-        const int64_t& get_ct() const { return ct; }
-        int64_t& get_mutable_ct() { return ct; }
-        void set_ct(const int64_t& value) { this->ct = value; }
+        const int& get_b() const { return b; }
+        int& get_mutable_b() { return b; }
+        void set_b(const int& value) { this->b = value; }
     };
 
     class Recipe {
@@ -54,80 +54,82 @@ namespace SYtool_recipes {
         virtual ~Recipe() = default;
 
     private:
-        int64_t id;
-        int64_t od;
-        int64_t tp;
-        std::vector<int64_t> zy;
+        int id;
+        int ot;
         std::string cl;
-        std::vector<It> its;
+        int lv;
+        std::vector<Itm> itms;
+        std::vector<int> av;
 
     public:
-        const int64_t& get_id() const { return id; }
-        int64_t& get_mutable_id() { return id; }
-        void set_id(const int64_t& value) { this->id = value; }
+        const int& get_id() const { return id; }
+        int& get_mutable_id() { return id; }
+        void set_id(const int& value) { this->id = value; }
 
-        const int64_t& get_od() const { return od; }
-        int64_t& get_mutable_od() { return od; }
-        void set_od(const int64_t& value) { this->od = value; }
-
-        const int64_t& get_tp() const { return tp; }
-        int64_t& get_mutable_tp() { return tp; }
-        void set_tp(const int64_t& value) { this->tp = value; }
-
-        const std::vector<int64_t>& get_zy() const { return zy; }
-        std::vector<int64_t>& get_mutable_zy() { return zy; }
-        void set_zy(const std::vector<int64_t>& value) { this->zy = value; }
+        const int& get_ot() const { return ot; }
+        int& get_mutable_ot() { return ot; }
+        void set_ot(const int& value) { this->ot = value; }
 
         const std::string& get_cl() const { return cl; }
         std::string& get_mutable_cl() { return cl; }
         void set_cl(const std::string& value) { this->cl = value; }
 
-        const std::vector<It>& get_its() const { return its; }
-        std::vector<It>& get_mutable_its() { return its; }
-        void set_its(const std::vector<It>& value) { this->its = value; }
+        const int& get_lv() const { return lv; }
+        int& get_mutable_lv() { return lv; }
+        void set_lv(const int& value) { this->lv = value; }
+
+        const std::vector<Itm>& get_itms() const { return itms; }
+        std::vector<Itm>& get_mutable_itms() { return itms; }
+        void set_itms(const std::vector<Itm>& value) { this->itms = value; }
+
+        const std::vector<int>& get_av() const { return av; }
+        std::vector<int>& get_mutable_av() { return av; }
+        void set_av(const std::vector<int>& value) { this->av = value; }
     };
 
     using Recipes = std::vector<Recipe>;
 }
 
-namespace SYtool_recipes {
+namespace MyData_Recipes {
     using Recipes = std::vector<Recipe>;
 }
 
 namespace nlohmann {
-    void from_json(const json& j, SYtool_recipes::It& x);
-    void to_json(json& j, const SYtool_recipes::It& x);
+    void from_json(const json& j, MyData_Recipes::Itm& x);
+    void to_json(json& j, const MyData_Recipes::Itm& x);
 
-    void from_json(const json& j, SYtool_recipes::Recipe& x);
-    void to_json(json& j, const SYtool_recipes::Recipe& x);
+    void from_json(const json& j, MyData_Recipes::Recipe& x);
+    void to_json(json& j, const MyData_Recipes::Recipe& x);
 
-    inline void from_json(const json& j, SYtool_recipes::It& x) {
-        x.set_it(j.at("it").get<int64_t>());
-        x.set_ct(j.at("ct").get<int64_t>());
+    inline void from_json(const json& j, MyData_Recipes::Itm& x) {
+        x.set_a(j.at("A").get<int>());
+        x.set_b(j.at("B").get<int>());
     }
 
-    inline void to_json(json& j, const SYtool_recipes::It& x) {
+    inline void to_json(json& j, const MyData_Recipes::Itm& x) {
         j = json::object();
-        j["it"] = x.get_it();
-        j["ct"] = x.get_ct();
+        j["A"] = x.get_a();
+        j["B"] = x.get_b();
     }
 
-    inline void from_json(const json& j, SYtool_recipes::Recipe& x) {
-        x.set_id(j.at("id").get<int64_t>());
-        x.set_od(j.at("od").get<int64_t>());
-        x.set_tp(j.at("tp").get<int64_t>());
-        x.set_zy(j.at("zy").get<std::vector<int64_t>>());
-        x.set_cl(j.at("cl").get<std::string>());
-        x.set_its(j.at("its").get<std::vector<SYtool_recipes::It>>());
+    inline void from_json(const json& j, MyData_Recipes::Recipe& x) {
+        x.set_id(j.at("ID").get<int>());
+        x.set_ot(j.at("OT").get<int>());
+        x.set_cl(j.at("CL").get<std::string>());
+        x.set_lv(j.at("LV").get<int>());
+        x.set_itms(j.at("ITMS").get<std::vector<MyData_Recipes::Itm>>());
+        x.set_av(j.at("AV").get<std::vector<int>>());
     }
 
-    inline void to_json(json& j, const SYtool_recipes::Recipe& x) {
+    inline void to_json(json& j, const MyData_Recipes::Recipe& x) {
         j = json::object();
-        j["id"] = x.get_id();
-        j["od"] = x.get_od();
-        j["tp"] = x.get_tp();
-        j["zy"] = x.get_zy();
-        j["cl"] = x.get_cl();
-        j["its"] = x.get_its();
+        j["ID"] = x.get_id();
+        j["OT"] = x.get_ot();
+        j["CL"] = x.get_cl();
+        j["LV"] = x.get_lv();
+        j["ITMS"] = x.get_itms();
+        j["AV"] = x.get_av();
     }
 }
+
+

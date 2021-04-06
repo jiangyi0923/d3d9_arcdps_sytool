@@ -50,15 +50,6 @@
     <ClInclude Include="json.hpp">
       <Filter>jsoncpp</Filter>
     </ClInclude>
-    <ClInclude Include="Items.h">
-      <Filter>parsing</Filter>
-    </ClInclude>
-    <ClInclude Include="Recipes.h">
-      <Filter>parsing</Filter>
-    </ClInclude>
-    <ClInclude Include="MysData.h">
-      <Filter>parsing</Filter>
-    </ClInclude>
     <ClInclude Include="wke.h">
       <Filter>源文件</Filter>
     </ClInclude>
@@ -88,6 +79,15 @@
     </ClInclude>
     <ClInclude Include="imgui\imgui_stdlib.h">
       <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Items.h">
+      <Filter>parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="MysticForge.h">
+      <Filter>parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="Recipes.h">
+      <Filter>parsing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
