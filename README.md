@@ -5,8 +5,8 @@ this is arcdps of Mystery Furnace and recipe search query plugin
 Database source:gw2 wiki ,gw2efficiency/custom-recipes,http://gw2profits.com
 数据库来源:gw2 wiki ,gw2efficiency/custom-recipes,http://gw2profits.com
 
-shortcut key:shift alt k
-快捷键:shift alt k
+shortcut key:shift alt p
+快捷键:shift alt p
 
 
 
